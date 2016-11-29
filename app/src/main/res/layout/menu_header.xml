@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:id="@+id/rl_menu_header"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#a4bebebb"
+    android:orientation="vertical">
+
+    <cc.czc.cn.boringtime.view.CircleImageView
+        android:id="@+id/iv_menu_header"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+       android:src="@drawable/a1"
+        android:scaleType="centerCrop"
+        app:border_color="#ae6a6a"
+        app:border_width="4dp"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_menu_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_menu_header"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="登录"
+        android:textSize="30sp" />
+
+</RelativeLayout>

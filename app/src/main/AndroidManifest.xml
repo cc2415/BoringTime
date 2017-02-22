@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.DetailJokeImagActivity"/>
+        <activity android:name=".activity.GanHuoRecommendDetailActivity"/>
     </application>
 
 </manifest>

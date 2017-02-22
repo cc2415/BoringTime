@@ -2,7 +2,6 @@ package cc.czc.cn.boringtime.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,28 +9,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import cc.czc.cn.boringtime.R;
-import cc.czc.cn.boringtime.bean.JokeImagEntiy;
+import cc.czc.cn.boringtime.bean.JokeImagBean;
 
 /**
  * Created by cc on 2016/11/22.
  */
 
 public class JokeImageAdapter extends RecyclerView.Adapter<JokeImageAdapter.MyViewHole> {
-    List<JokeImagEntiy.ShowapiResBodyBean.ContentlistBean> data;
+    List<JokeImagBean.ShowapiResBodyBean.ContentlistBean> data;
     Context context;
     LayoutInflater inflater;
 
-    public JokeImageAdapter(Context context, List<JokeImagEntiy.ShowapiResBodyBean.ContentlistBean> data) {
+    public JokeImageAdapter(Context context, List<JokeImagBean.ShowapiResBodyBean.ContentlistBean> data) {
         this.context = context;
         this.data = data;
         inflater = LayoutInflater.from(context);
@@ -50,21 +46,9 @@ public class JokeImageAdapter extends RecyclerView.Adapter<JokeImageAdapter.MyVi
         final Bitmap[] bitmap = new Bitmap[1];
         holder.tv.setText(data.get(position).getTitle());
         holder.tv_time.setText(data.get(position).getCt());
-//        Glide.with(context).load(data.get(position).getImg()).into(holder.iv);
-//        SimpleTarget simpleTarget = new SimpleTarget<Bitmap>() {
-//            @Override
-//            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                Palette.generateAsync(resource, 24, new Palette.PaletteAsyncListener() {
-//                    @Override
-//                    public void onGenerated(Palette palette) {
-//                        Palette.Swatch swatch = palette.getDarkMutedSwatch();
-//                        holder.tv.setBackgroundColor(swatch.getRgb());
-//                    }
-//                });
-//            }
-//        };
-//
-//        Glide.with(context).load(data.get(position).getImg()).asBitmap().into(simpleTarget);
+
+        //重置状态
+        holder.iv.setImageResource(R.drawable.pictures_no);
 
         Glide.with(context).load(data.get(position).getImg()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
@@ -87,7 +71,7 @@ public class JokeImageAdapter extends RecyclerView.Adapter<JokeImageAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data==null?0:data.size();
     }
 
     public class MyViewHole extends RecyclerView.ViewHolder {

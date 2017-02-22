@@ -1,14 +1,15 @@
 package cc.czc.cn.boringtime.model;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
 import cc.czc.cn.boringtime.NetListener;
 import cc.czc.cn.boringtime.api.ApiManage;
-import cc.czc.cn.boringtime.bean.JokeImagEntiy;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import cc.czc.cn.boringtime.api.NetWorkApi;
+import cc.czc.cn.boringtime.bean.JokeImagBean;
+import okhttp3.ResponseBody;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by cc on 2016/11/25.
@@ -16,94 +17,85 @@ import rx.schedulers.Schedulers;
 
 public class JokeImageModel {
     int imagPage = 1;
-
-    public void initData(final NetListener<JokeImagEntiy> listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiManage.Url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        IJokeImageNet iJokeImageNet = retrofit.create(IJokeImageNet.class);
-        iJokeImageNet.getData(ApiManage.API_KEY, imagPage + "")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<JokeImagEntiy>() {
+    public void initData(final NetListener<JokeImagBean> listener) {
+        NetWorkApi.getInstance()
+                .getImageData(new Subscriber<ResponseBody>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        listener.failed("error");
                     }
 
                     @Override
-                    public void onNext(JokeImagEntiy jokeImagEntiy) {
-                        listener.loadData(jokeImagEntiy);
-                        imagPage += 1;
+                    public void onNext(ResponseBody responseBody) {
+                        try {
+                            String s=responseBody.string();
+                            Gson gson=new Gson();
+                            JokeImagBean jokeImagBean = gson.fromJson(s, JokeImagBean.class);
+                            listener.loadData(jokeImagBean);
+                            imagPage+=1;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+//                        Toast.makeText(MainActivity.this, ResponseBody.toString(), Toast.LENGTH_LONG).show();
                     }
-                });
-
+                },"",ApiManage.API_KEY,imagPage+"");
     }
 
-    public void updateData(final NetListener<JokeImagEntiy> listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiManage.Url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        IJokeImageNet iJokeImageNet = retrofit.create(IJokeImageNet.class);
-        iJokeImageNet.getData(ApiManage.API_KEY, "1")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<JokeImagEntiy>() {
+    public void updateData(final NetListener<JokeImagBean> listener) {
+        NetWorkApi.getInstance()
+                .getImageData(new Subscriber<ResponseBody>() {
                     @Override
                     public void onCompleted() {
-                        System.out.println("over========================");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        System.out.println("timeout=======================");
-                    }
+                        listener.failed("error");}
 
                     @Override
-                    public void onNext(JokeImagEntiy jokeImagEntiy) {
-                        listener.updataDate(jokeImagEntiy);
-                        imagPage=1;
-                        System.out.println("success======================");
-
+                    public void onNext(ResponseBody responseBody) {
+                        try {
+                            String s=responseBody.string();
+                            Gson gson=new Gson();
+                            JokeImagBean jokeImagBean = gson.fromJson(s, JokeImagBean.class);
+                            listener.updataDate(jokeImagBean);
+                            imagPage=1;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+//                        Toast.makeText(MainActivity.this, ResponseBody.toString(), Toast.LENGTH_LONG).show();
                     }
-                });
+                },"",ApiManage.API_KEY,imagPage+"");
     }
 
-    public void loadMoreData(final NetListener<JokeImagEntiy> listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiManage.Url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        IJokeImageNet iJokeImageNet = retrofit.create(IJokeImageNet.class);
-        iJokeImageNet.getData(ApiManage.API_KEY, imagPage + "")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<JokeImagEntiy>() {
+    public void loadMoreData(final NetListener<JokeImagBean> listener) {
+        NetWorkApi.getInstance()
+                .getImageData(new Subscriber<ResponseBody>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
-                    }
+                        listener.failed("error");}
 
                     @Override
-                    public void onNext(JokeImagEntiy jokeImagEntiy) {
-                        listener.loadMoreData(jokeImagEntiy);
-                        imagPage+=1;
+                    public void onNext(ResponseBody responseBody) {
+                        try {
+                            String s=responseBody.string();
+                            Gson gson=new Gson();
+                            JokeImagBean jokeImagBean = gson.fromJson(s, JokeImagBean.class);
+                            listener.loadMoreData(jokeImagBean);
+                            imagPage+=1;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+//                        Toast.makeText(MainActivity.this, ResponseBody.toString(), Toast.LENGTH_LONG).show();
                     }
-                });
+                },"",ApiManage.API_KEY,imagPage+"");
     }
 }

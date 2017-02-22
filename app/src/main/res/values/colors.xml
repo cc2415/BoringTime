@@ -6,4 +6,10 @@
 
 
     <color name="pri">#ac3b1919</color>
+    <color name="viewpagerindicator">#da53ba9a</color>
+    <color name="item_recommed_text">#f7050505</color>
+    <color name="all_background">#c8ffffff</color>
+    <color name="Slide_menu_background">#ffffff</color>
+    <color name="Slide_menu_header">#cd72dcda</color>
+    <color name="floatbutton_background">#ed3572</color>
 </resources>

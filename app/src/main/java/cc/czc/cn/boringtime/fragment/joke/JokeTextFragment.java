@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cc.czc.cn.boringtime.R;
 import cc.czc.cn.boringtime.adapter.JokeTextAdapter;
-import cc.czc.cn.boringtime.bean.JokeTextEntiy;
+import cc.czc.cn.boringtime.bean.JokeTextBean;
 import cc.czc.cn.boringtime.present.contract.IJokeTextContract;
 import cc.czc.cn.boringtime.present.impl.JokeTextPresentImpl;
 
@@ -36,7 +37,7 @@ public class JokeTextFragment extends Fragment implements IJokeTextContract.Joke
     ProgressBar progress;
 
     JokeTextAdapter adapter;
-    List<JokeTextEntiy.ShowapiResBodyBean.ContentlistBean> data;
+    List<JokeTextBean.ShowapiResBodyBean.ContentlistBean> data;
     IJokeTextContract.Present mPresent;
     boolean isLoading =false;
     
@@ -48,12 +49,12 @@ public class JokeTextFragment extends Fragment implements IJokeTextContract.Joke
 
         initConfig();
         new JokeTextPresentImpl(this);
-        mPresent.start();
+//        mPresent.start();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresent.updateData();
+//                mPresent.updateData();
             }
         });
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -63,7 +64,7 @@ public class JokeTextFragment extends Fragment implements IJokeTextContract.Joke
 
                 if (!recyclerView.canScrollVertically(1)) {
                     System.out.println("加载更多");
-                    mPresent.loadMoreData();
+//                    mPresent.loadMoreData();
                 }
             }
         });
@@ -81,15 +82,18 @@ public class JokeTextFragment extends Fragment implements IJokeTextContract.Joke
     }
 
     @Override
-    public void initData(JokeTextEntiy data) {
-        this.data=data.getShowapi_res_body().getContentlist();
-        adapter = new JokeTextAdapter(getContext(), this.data);
-        recyclerView.setAdapter(adapter);
+    public void initData(JokeTextBean data) {
+        if(data==null){
+            Toast.makeText(getContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
+        }else {
+            this.data = data.getShowapi_res_body().getContentlist();
+            adapter = new JokeTextAdapter(getContext(), this.data);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     @Override
-    public void updateDate(JokeTextEntiy newData) {
-//        data.addAll(0,newData);
+    public void updateDate(JokeTextBean newData) {
         this.data.removeAll(this.data);
         this.data.addAll(newData.getShowapi_res_body().getContentlist());
         adapter.notifyDataSetChanged();
@@ -97,7 +101,7 @@ public class JokeTextFragment extends Fragment implements IJokeTextContract.Joke
     }
 
     @Override
-    public void loadMoreData(JokeTextEntiy moreData) {
+    public void loadMoreData(JokeTextBean moreData) {
         this.data.addAll( moreData.getShowapi_res_body().getContentlist());
         adapter.notifyDataSetChanged();
     }

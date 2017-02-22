@@ -7,21 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cc.czc.cn.boringtime.R;
-import cc.czc.cn.boringtime.bean.JokeTextEntiy;
+import cc.czc.cn.boringtime.bean.JokeTextBean;
 
 /**
  * Created by cc on 2016/11/22.
  */
 
 public class JokeTextAdapter extends RecyclerView.Adapter<JokeTextAdapter.MyViewHolder> {
-    List<JokeTextEntiy.ShowapiResBodyBean.ContentlistBean> data;
+    List<JokeTextBean.ShowapiResBodyBean.ContentlistBean> data;
     Context context;
     LayoutInflater inflater;
-    public JokeTextAdapter(Context context, List<JokeTextEntiy.ShowapiResBodyBean.ContentlistBean> data){
+    public JokeTextAdapter(Context context, List<JokeTextBean.ShowapiResBodyBean.ContentlistBean> data){
         this.context=context;
         this.data=data;
         inflater = LayoutInflater.from(context);
@@ -45,7 +44,7 @@ public class JokeTextAdapter extends RecyclerView.Adapter<JokeTextAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data==null?0:data.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

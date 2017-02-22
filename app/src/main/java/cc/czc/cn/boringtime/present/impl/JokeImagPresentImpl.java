@@ -1,10 +1,8 @@
 package cc.czc.cn.boringtime.present.impl;
 
 import cc.czc.cn.boringtime.NetListener;
-import cc.czc.cn.boringtime.bean.JokeImagEntiy;
-import cc.czc.cn.boringtime.bean.JokeTextEntiy;
+import cc.czc.cn.boringtime.bean.JokeImagBean;
 import cc.czc.cn.boringtime.model.JokeImageModel;
-import cc.czc.cn.boringtime.model.JokeTextModel;
 import cc.czc.cn.boringtime.present.contract.IJokeImagContract;
 
 /**
@@ -23,25 +21,31 @@ public class JokeImagPresentImpl implements IJokeImagContract.Present {
     @Override
     public void loadData() {
         mView.showProgress();
-        model.initData(new NetListener<JokeImagEntiy>() {
+        model.initData(new NetListener<JokeImagBean>() {
             @Override
-            public void loadData(JokeImagEntiy data) {
+            public void loadData(JokeImagBean data) {
                 mView.initData(data);
                 mView.hiddenProgress();
             }
 
             @Override
-            public void updataDate(JokeImagEntiy data) {
+            public void updataDate(JokeImagBean data) {
 
             }
 
             @Override
             public void failed(String msg) {
+                mView.hiddenProgress();
+            }
+
+
+            @Override
+            public void loadMoreData(JokeImagBean data) {
 
             }
 
             @Override
-            public void loadMoreData(JokeImagEntiy data) {
+            public void completed(JokeImagBean msg) {
 
             }
         });
@@ -55,14 +59,14 @@ public class JokeImagPresentImpl implements IJokeImagContract.Present {
 
     @Override
     public void updateData() {
-        model.updateData(new NetListener<JokeImagEntiy>() {
+        model.updateData(new NetListener<JokeImagBean>() {
             @Override
-            public void loadData(JokeImagEntiy data) {
+            public void loadData(JokeImagBean data) {
 
             }
 
             @Override
-            public void updataDate(JokeImagEntiy data) {
+            public void updataDate(JokeImagBean data) {
                 mView.updateDate(data);
             }
 
@@ -72,7 +76,12 @@ public class JokeImagPresentImpl implements IJokeImagContract.Present {
             }
 
             @Override
-            public void loadMoreData(JokeImagEntiy data) {
+            public void loadMoreData(JokeImagBean data) {
+
+            }
+
+            @Override
+            public void completed(JokeImagBean msg) {
 
             }
         });
@@ -81,14 +90,14 @@ public class JokeImagPresentImpl implements IJokeImagContract.Present {
     @Override
     public void loadMoreData() {
         mView.showProgress();
-        model.loadMoreData(new NetListener<JokeImagEntiy>() {
+        model.loadMoreData(new NetListener<JokeImagBean>() {
             @Override
-            public void loadData(JokeImagEntiy data) {
+            public void loadData(JokeImagBean data) {
 
             }
 
             @Override
-            public void updataDate(JokeImagEntiy data) {
+            public void updataDate(JokeImagBean data) {
 
             }
 
@@ -98,9 +107,14 @@ public class JokeImagPresentImpl implements IJokeImagContract.Present {
             }
 
             @Override
-            public void loadMoreData(JokeImagEntiy data) {
+            public void loadMoreData(JokeImagBean data) {
                 mView.loadMoreData(data);
                 mView.hiddenProgress();
+            }
+
+            @Override
+            public void completed(JokeImagBean msg) {
+
             }
         });
     }

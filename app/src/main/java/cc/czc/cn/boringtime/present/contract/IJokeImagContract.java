@@ -2,8 +2,7 @@ package cc.czc.cn.boringtime.present.contract;
 
 import cc.czc.cn.boringtime.base.IBasePresent;
 import cc.czc.cn.boringtime.base.IBaseView;
-import cc.czc.cn.boringtime.bean.JokeImagEntiy;
-import cc.czc.cn.boringtime.bean.JokeTextEntiy;
+import cc.czc.cn.boringtime.bean.JokeImagBean;
 
 /**
  * Created by cc on 2016/11/21.
@@ -11,9 +10,9 @@ import cc.czc.cn.boringtime.bean.JokeTextEntiy;
 
 public interface IJokeImagContract {
     interface JokeView extends IBaseView<Present>{
-        void initData(JokeImagEntiy data);
-        void updateDate(JokeImagEntiy newData);
-        void loadMoreData(JokeImagEntiy moreData);
+        void initData(JokeImagBean data);
+        void updateDate(JokeImagBean newData);
+        void loadMoreData(JokeImagBean moreData);
     }
 
     interface Present extends IBasePresent {

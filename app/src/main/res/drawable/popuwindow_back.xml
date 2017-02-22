@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval"
+    >
+<stroke
+    android:color="#fff"
+    android:width="0dp"
+
+    />
+    <solid
+        android:color="@color/floatbutton_background"
+        />
+    <size
+        android:height="40dp"
+        android:width="40dp"
+
+        />
+
+</shape>

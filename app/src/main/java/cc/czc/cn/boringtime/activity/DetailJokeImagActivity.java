@@ -51,7 +51,8 @@ public class DetailJokeImagActivity extends AppCompatActivity {
                Palette.generateAsync(resource, 24, new Palette.PaletteAsyncListener() {
                    @Override
                    public void onGenerated(Palette palette) {
-                       Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
+//                       Palette.Swatch darkMutedSwatch = palette.getDarkMutedSwatch();
+                       Palette.Swatch darkMutedSwatch = palette.getDarkVibrantSwatch();
                        if (darkMutedSwatch != null) {
                         tv.setBackgroundColor(darkMutedSwatch.getRgb());
                         tv.setTextColor(darkMutedSwatch.getTitleTextColor());

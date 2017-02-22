@@ -1,6 +1,5 @@
 package cc.czc.cn.boringtime.fragment.joke;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -8,17 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -27,10 +22,9 @@ import butterknife.ButterKnife;
 import cc.czc.cn.boringtime.R;
 import cc.czc.cn.boringtime.activity.DetailJokeImagActivity;
 import cc.czc.cn.boringtime.adapter.JokeImageAdapter;
-import cc.czc.cn.boringtime.bean.JokeImagEntiy;
+import cc.czc.cn.boringtime.bean.JokeImagBean;
 import cc.czc.cn.boringtime.present.contract.IJokeImagContract;
 import cc.czc.cn.boringtime.present.impl.JokeImagPresentImpl;
-import cc.czc.cn.boringtime.util.ImageUtil;
 
 /**
  * Created by cc on 2016/11/22.
@@ -44,7 +38,7 @@ public class JokeImageFragment extends Fragment implements IJokeImagContract.Jok
     @BindView(R.id.progress)
     ProgressBar progressBar;
 
-    List<JokeImagEntiy.ShowapiResBodyBean.ContentlistBean> data;
+    List<JokeImagBean.ShowapiResBodyBean.ContentlistBean> data;
     JokeImageAdapter adapter;
     IJokeImagContract.Present mPresent;
 
@@ -55,7 +49,7 @@ public class JokeImageFragment extends Fragment implements IJokeImagContract.Jok
         ButterKnife.bind(this, view);
 
         new JokeImagPresentImpl(this);
-        mPresent.start();
+//        mPresent.start();
         initConfig();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -70,16 +64,15 @@ public class JokeImageFragment extends Fragment implements IJokeImagContract.Jok
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!recyclerView.canScrollVertically(1)){
-                    mPresent.loadMoreData();
+//                    mPresent.loadMoreData();
                 }
             }
         });
-
-
         return view;
     }
 
     void initConfig() {
+        //swipeRefreshLayout下拉刷新设置
         int[] color = new int[]{Color.GREEN, Color.BLUE, Color.YELLOW};
         swipeRefreshLayout.setColorSchemeColors(color);
         swipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
@@ -107,7 +100,7 @@ public class JokeImageFragment extends Fragment implements IJokeImagContract.Jok
     }
 
     @Override
-    public void initData(final JokeImagEntiy data) {
+    public void initData(final JokeImagBean data) {
         this.data=data.getShowapi_res_body().getContentlist();
         adapter = new JokeImageAdapter(getContext(), this.data);
         recyclerView.setAdapter(adapter);
@@ -115,7 +108,7 @@ public class JokeImageFragment extends Fragment implements IJokeImagContract.Jok
             @Override
             public void ItemClickListener(View view, int position, Bitmap bitmap) {
                 ImageView viewById = (ImageView) view.findViewById(R.id.iv_item_frag_joke_img);
-                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity(),viewById,viewById.getTransitionName()).toBundle();
+//                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity(),viewById,viewById.getTransitionName()).toBundle();
                 Intent intent = new Intent(getContext(), DetailJokeImagActivity.class);
                 // TODO: 2016/11/28 size problem
 //                byte[] bytes = ImageUtil.bitmapToByteArray(bitmap);
@@ -136,16 +129,15 @@ public class JokeImageFragment extends Fragment implements IJokeImagContract.Jok
     }
 
     @Override
-    public void updateDate(JokeImagEntiy newData) {
+    public void updateDate(JokeImagBean newData) {
         this.data.removeAll(this.data);
         this.data.addAll(newData.getShowapi_res_body().getContentlist());
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
-        System.out.println("updatae=====================");
     }
 
     @Override
-    public void loadMoreData(JokeImagEntiy moreData) {
+    public void loadMoreData(JokeImagBean moreData) {
         this.data.addAll(moreData.getShowapi_res_body().getContentlist());
         adapter.notifyDataSetChanged();
     }

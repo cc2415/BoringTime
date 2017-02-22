@@ -11,5 +11,9 @@
         <item name="android:windowNoTitle">true</item>
         <!--<item name="windowActionBar">false</item>-->
     </style>
+    <style name="mypopuwindow_anim_sstyle">
+        <item name="android:windowEnterAnimation">@anim/popu_enter</item>
+        <item name="android:windowExitAnimation">@anim/popu_exit</item>
+    </style>
 
 </resources>

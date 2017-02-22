@@ -1,7 +1,7 @@
 package cc.czc.cn.boringtime.present.impl;
 
 import cc.czc.cn.boringtime.NetListener;
-import cc.czc.cn.boringtime.bean.JokeTextEntiy;
+import cc.czc.cn.boringtime.bean.JokeTextBean;
 import cc.czc.cn.boringtime.model.JokeTextModel;
 import cc.czc.cn.boringtime.present.contract.IJokeTextContract;
 
@@ -21,25 +21,32 @@ public class JokeTextPresentImpl implements IJokeTextContract.Present {
     @Override
     public void loadData() {
         mView.showProgress();
-        model.initTextData(new NetListener<JokeTextEntiy>() {
+        model.initTextData(new NetListener<JokeTextBean>() {
             @Override
-            public void loadData(JokeTextEntiy data) {
+            public void loadData(JokeTextBean data) {
                 mView.initData(data);
                 mView.hiddenProgress();
             }
 
             @Override
-            public void updataDate(JokeTextEntiy data) {
+            public void updataDate(JokeTextBean data) {
 
             }
 
             @Override
             public void failed(String msg) {
+                if (msg.equals("error")) {
+                    mView.hiddenProgress();
+                }
+            }
+
+            @Override
+            public void loadMoreData(JokeTextBean data) {
 
             }
 
             @Override
-            public void loadMoreData(JokeTextEntiy data) {
+            public void completed(JokeTextBean msg) {
 
             }
         });
@@ -53,24 +60,31 @@ public class JokeTextPresentImpl implements IJokeTextContract.Present {
 
     @Override
     public void updateData() {
-        model.updateTextData(new NetListener<JokeTextEntiy>() {
+        model.updateTextData(new NetListener<JokeTextBean>() {
             @Override
-            public void loadData(JokeTextEntiy data) {
+            public void loadData(JokeTextBean data) {
 
             }
 
             @Override
-            public void updataDate(JokeTextEntiy data) {
+            public void updataDate(JokeTextBean data) {
                 mView.updateDate(data);
             }
 
             @Override
             public void failed(String msg) {
+                if (msg.equals("error")) {
+                    mView.hiddenProgress();
+                }
+            }
+
+            @Override
+            public void loadMoreData(JokeTextBean data) {
 
             }
 
             @Override
-            public void loadMoreData(JokeTextEntiy data) {
+            public void completed(JokeTextBean msg) {
 
             }
         });
@@ -79,26 +93,33 @@ public class JokeTextPresentImpl implements IJokeTextContract.Present {
     @Override
     public void loadMoreData() {
         mView.showProgress();
-        model.loadMoreTextData(new NetListener<JokeTextEntiy>() {
+        model.loadMoreTextData(new NetListener<JokeTextBean>() {
             @Override
-            public void loadData(JokeTextEntiy data) {
+            public void loadData(JokeTextBean data) {
 
             }
 
             @Override
-            public void updataDate(JokeTextEntiy data) {
+            public void updataDate(JokeTextBean data) {
 
             }
 
             @Override
             public void failed(String msg) {
-
+                if (msg.equals("error")) {
+                    mView.hiddenProgress();
+                }
             }
 
             @Override
-            public void loadMoreData(JokeTextEntiy data) {
+            public void loadMoreData(JokeTextBean data) {
                 mView.loadMoreData(data);
                 mView.hiddenProgress();
+            }
+
+            @Override
+            public void completed(JokeTextBean msg) {
+
             }
         });
     }

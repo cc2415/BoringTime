@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-
+    <group android:checkableBehavior="single"
+        >
         <item
-            android:icon="@drawable/ic_launcher"
-            android:title="JOKE"
+            android:icon="@drawable/joke"
+            android:title="笑话精选"
             android:id="@+id/joke_frag"
             />
         <item
+            android:icon="@drawable/gank"
+            android:id="@+id/new_frag"
+            android:title="干货集中营"
+            />
+        <item
             android:icon="@drawable/ic_launcher"
-            android:title="ClearMenory"
+            android:title="清理缓存"
             android:id="@+id/clean_memory"
             />
-
-
     </group>
 </menu>

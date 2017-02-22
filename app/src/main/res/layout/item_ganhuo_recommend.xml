@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginTop="15dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp">
+
+    <ImageView
+        android:id="@+id/iv_item_ganhuo_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/pictures_no"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tv_item_ganhuo_recommend_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_item_ganhuo_recommend"
+        android:layout_marginTop="5dp"
+        android:textStyle="normal"
+        android:padding="5dp"
+        android:text="到了看见分厘卡机圣诞快乐附件是离开酒店ask觉得分厘卡机是的来发牢骚空间的付款啦就是丢了饭卡上来看附近的啊"
+        android:textColor="@color/item_recommed_text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_item_ganhuo_recommend_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_item_ganhuo_recommend_desc"
+        android:layout_marginTop="5dp"
+        android:text="2014/24/24" />
+</RelativeLayout>

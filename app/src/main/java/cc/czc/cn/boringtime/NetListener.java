@@ -11,4 +11,5 @@ public interface NetListener<T> {
     void failed(String msg);
 
     void loadMoreData(T data);
+    void completed(T msg);
 }

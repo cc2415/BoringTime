@@ -28,8 +28,8 @@ public class JokeFragment extends BaseFragment {
     ViewPager mViewPager;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-
+    ViewGroup container;
+    View view;
     JokeFragmentPageAdapter adapter;
     ArrayList<Fragment> fragmentArrayList;
 
@@ -37,14 +37,15 @@ public class JokeFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_joke, container, false);
+        view = inflater.inflate(R.layout.frag_joke, container, false);
         ButterKnife.bind(this, view);
-
+        this.container=container;
         initViewPage();
         setHasOptionsMenu(true);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-//        toolbar.setTitle("Joke");
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("JOKE");
+
+
         return view;
     }
 
@@ -56,5 +57,8 @@ public class JokeFragment extends BaseFragment {
         mViewPager.setAdapter(adapter);
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

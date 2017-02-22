@@ -4,7 +4,7 @@
     android:layout_height="240dp"
     android:id="@+id/rl_menu_header"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#a4bebebb"
+    android:background="@color/Slide_menu_header"
     android:orientation="vertical">
 
     <cc.czc.cn.boringtime.view.CircleImageView
@@ -13,7 +13,7 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-       android:src="@drawable/a1"
+        android:src="@drawable/a1"
         android:scaleType="centerCrop"
         app:border_color="#ae6a6a"
         app:border_width="4dp"

@@ -5,38 +5,27 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity=""
     tools:context="cc.czc.cn.boringtime.MainActivity">
 
+<!--点击侧边栏切换fragment-->
     <FrameLayout
         android:id="@+id/fl_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <View
-            android:background="#ac3b1919"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
+        <!--背景-->
+        <!--<View-->
+            <!--android:background="@color/all_background"-->
             <!--android:layout_width="match_parent"-->
-            <!--android:background="?attr/colorPrimary"-->
-            <!--android:layout_height="?android:actionBarSize"/>-->
-        <!--<ProgressBar-->
-            <!--android:id="@+id/progress_activity_main"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:visibility="gone"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:indeterminate="true"-->
-            <!--android:indeterminateTintMode="src_in" />-->
-    </FrameLayout>
+            <!--android:layout_height="match_parent" />-->
 
+    </FrameLayout>
+<!--侧边栏内容又 headerlayou和meu组成-->
     <android.support.design.widget.NavigationView
         android:id="@+id/navigationview_activity"
         android:layout_gravity="start"
         app:menu="@menu/menu_main"
         app:headerLayout="@layout/menu_header"
         android:layout_width="wrap_content"
+        android:background="@color/Slide_menu_background"
         android:layout_height="match_parent"/>
 </android.support.v4.widget.DrawerLayout>
